@@ -1,5 +1,4 @@
-let a = window.open('http://124.70.33.170:3000','app');
-a = window.open('http://124.70.33.170:3000/login','app');
+let a = window.open('http://124.70.33.170:3000/login','app');
 const username = 'http://47.115.201.35:7799/';
 const password = '5543f02abbd854192cd335464c038e4c';
 a.fetch('http://124.70.33.170:3000/login', {
