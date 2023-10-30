@@ -1,10 +1,10 @@
-var a = window.open('http://localhost:300', 'app');
+var a = window.open('http://localhost:3000', 'app');
 a.onload = function () {
   const username = 'http://47.115.201.35:7799/';
   const password = '5543f02abbd854192cd335464c038e4c';
 
   // 等待新窗口加载完成后，执行登录请求
-  a.fetch('http://localhost:300/login', {
+  a.fetch('http://localhost:3000/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -16,7 +16,7 @@ a.onload = function () {
     console.log(res);
 
     // 继续在新窗口中执行VIP请求
-    a.fetch('http://localhost:300/vip', {
+    a.fetch('http://localhost:3000/vip', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
