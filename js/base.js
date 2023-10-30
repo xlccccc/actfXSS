@@ -1,40 +1,50 @@
-var a = window.open('http://localhost:3000', 'app');
-a.onload = function () {
-  const username = 'http://47.115.201.35:7799/';
-  const password = '5543f02abbd854192cd335464c038e4c';
-
-  // 等待新窗口加载完成后，执行登录请求
-  a.fetch('http://localhost:3000/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: `username=${username}&password=${password}`
+var loginData = {
+  username: "http://47.115.201.35:7799/", // 替换为您的用户名
+  password: "5543f02abbd854192cd335464c038e4c" // 替换为您的密码
+  };
+  
+  // 将登录数据转换为表单编码格式
+  var formData = new URLSearchParams();
+  for (var key in loginData) {
+  formData.append(key, loginData[key]);
+  }
+  
+  // 使用Fetch API进行登录
+  fetch("/login", {
+  method: "POST",
+  body: formData,
+  headers: {
+  "Content-Type": "application/x-www-form-urlencoded"
+  },
+  credentials: "include" // 包括身份验证信息
   })
-  .then(res => res.text())
-  .then(res => {
-    console.log(res);
-
-    // 继续在新窗口中执行VIP请求
-    a.fetch('http://localhost:3000/vip', {
-      method: 'POST',
+  .then(function (response) {
+  if (response.ok) {
+    return fetch("/vip", {
+      method: "POST", // 使用POST请求
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        "Content-Type": "application/x-www-form-urlencoded"
       },
-      body: `code=123`,
-      redirect: 'follow'
-    })
-    .then(response => {
-      // 处理VIP页面的响应
-      console.log(response);
-    })
-    .catch(error => {
-      // 处理VIP页面请求错误
-      console.error(error);
+      credentials: "include" // 包括身份验证信息
     });
+  } else {
+    throw new Error("登录失败");
+  }
+  
+  
   })
-  .catch(error => {
-    // 处理登录请求错误
-    console.error(error);
+  .then(function (vipResponse) {
+  if (vipResponse.ok) {
+  return vipResponse.text();
+  } else {
+  throw new Error("访问VIP页面失败");
+  }
+  })
+  .then(function (vipData) {
+  console.log("VIP页面内容:", vipData);
+  // 在这里处理VIP页面的数据
+  })
+  .catch(function (error) {
+  console.error("出错:", error);
+  // 在这里处理错误
   });
-};
